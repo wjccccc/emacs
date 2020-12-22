@@ -1,0 +1,21 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("DDD"
+ (filename . "~/北斗智联科技/2020/ip")
+ (front-context-string . "rsync  -av --pro")
+ (rear-context-string . "193.82 jenkins\n\n")
+ (position . 563))
+("CCC"
+ (filename . "~/北斗智联科技/2020/ip")
+ (front-context-string . "重庆IP\n\n255.255.25")
+ (rear-context-string . "il\nbdxt@8391\n\n\n\n")
+ (position . 328)
+ (annotation . ""))
+("XXX"
+ (filename . "~/北斗智联科技/2020/ip")
+ (front-context-string . "192.168.143.133\n")
+ (rear-context-string . ".pass\n\n\n\n\n\n宿迁IP\n")
+ (position . 162))
+)
