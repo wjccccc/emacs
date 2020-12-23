@@ -1,10 +1,10 @@
 
 * Jincai' Emacs configurations
-  
+
 
 ** 插件管理(Must Top)
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -18,10 +18,11 @@
 (setq package-check-signature nil)
 (package-initialize)
 
-   #+END_SRC
+#+END_SRC
+
 ** 启动初始化
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (if (string-match "XEmacs\\|Lucid" emacs-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -55,12 +56,11 @@
 ;;;关闭欢迎
 (setq inhibit-splash-screen 1)
 
-
-   #+END_SRC
+#+END_SRC
 
 ** 视觉层配置
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (put 'set-goal-column 'disabled nil)
 (put 'scroll-left 'disabled nil)
@@ -92,13 +92,12 @@
       monokai-orange         "#D19A66"
       monokai-yellow         "#E5C07B")
 
-
-
-   #+END_SRC
+#+END_SRC
 
 ** 快捷键配置
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
+
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
@@ -109,20 +108,21 @@
 (setq recentf-max-menu-item 10)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key "\C-s" 'swiper)
-   #+END_SRC
+#+END_SRC
 
 ** 常用变量
-   #+BEGIN_SRC emacs-lisp
+
+#+BEGIN_SRC emacs-lisp
 
 (delete-selection-mode 1)
 (global-hungry-delete-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-   #+END_SRC
+#+END_SRC
 
 ** 自动补全
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (global-company-mode 1)
 (ivy-mode t)
@@ -149,11 +149,11 @@
 					try-complete-lisp-symbol))
 
 
-   #+END_SRC
+#+END_SRC
 
 ** 文件操作
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (put 'dired-find-alternate-file 'disabled nil)
 ;; 主动加载 Dired Mode
@@ -171,11 +171,11 @@
 ;;(global-auto-revert-mode 1)
 
 
-   #+END_SRC
+#+END_SRC
 
 ** Org相关
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (setq org-agenda-files '("~/.emacs.d/org-file"))
 
@@ -183,11 +183,11 @@
 (require 'org)
 (setq org-src-fontify-natively t)
 
-   #+END_SRC
+#+END_SRC
 
 ** Html配置
 
-   #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (setq auto-mode-alist
       (append
@@ -195,4 +195,4 @@
        '(("\\.html\\'" . web-mode))
        auto-mode-alist))
 
-   #+END_SRC
+#+END_SRC
