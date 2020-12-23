@@ -39,6 +39,8 @@
   (load "~/.gnu-emacs-custom" t t)
 
 )
+;;;关闭欢迎
+(setq inhibit-splash-screen 1)
 
 (put 'set-goal-column 'disabled nil)
 (put 'scroll-left 'disabled nil)
@@ -90,6 +92,14 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+;;括号高亮
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (cond ((looking-at-p "\\s(") (funcall fn))
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     (funcall fn)))))
+
 (setq hippie-expand-try-function-list '(try-expand-debbrev
 					try-expand-debbrev-all-buffers
 					try-expand-debbrev-from-kill
@@ -113,4 +123,13 @@
 ;;;
 (setq-default make-backup-files nil)
 
+;;
+;;(global-auto-revert-mode 1)
+
 (setq org-agenda-files '("~/.emacs.d/org-file"))
+
+(setq auto-mode-alist
+      (append
+       '(("\\.js\\'" . js2-mode))
+       '(("\\.html\\'" . web-mode))
+       auto-mode-alist))

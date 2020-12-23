@@ -1,4 +1,5 @@
-* My Emacs configurations
+
+* Jincai' Emacs configurations
 
 
 ** 插件管理(Must Top)
@@ -22,6 +23,9 @@
 ** 启动初始化
 
 #+BEGIN_SRC emacs-lisp
+
+
+
 (if (string-match "XEmacs\\|Lucid" emacs-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; XEmacs
@@ -51,6 +55,9 @@
   (load "~/.gnu-emacs-custom" t t)
 
 )
+;;;关闭欢迎
+(setq inhibit-splash-screen 1)
+
 
 #+END_SRC
 ** 视觉层配置
@@ -122,6 +129,14 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+;;括号高亮
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (cond ((looking-at-p "\\s(") (funcall fn))
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     (funcall fn)))))
+
 (setq hippie-expand-try-function-list '(try-expand-debbrev
 					try-expand-debbrev-all-buffers
 					try-expand-debbrev-from-kill
@@ -150,11 +165,31 @@
 (require 'dired-x)
 ;;;
 (setq-default make-backup-files nil)
+
+;;
+;;(global-auto-revert-mode 1)
+
+
 #+END_SRC
 
 ** Org相关
 
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files '("~/.emacs.d/org-file"))
+
+;;org语法高亮
+(require 'org)
+(setq org-src-fontify-natively t)
+
+#+END_SRC
+
+** Html配置
+#+BEGIN_SRC emacs-lisp
+
+(setq auto-mode-alist
+      (append
+       '(("\\.js\\'" . js2-mode))
+       '(("\\.html\\'" . web-mode))
+       auto-mode-alist))
 
 #+END_SRC
