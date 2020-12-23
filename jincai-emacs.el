@@ -128,6 +128,10 @@
 
 (setq org-agenda-files '("~/.emacs.d/org-file"))
 
+;;org语法高亮
+(require 'org)
+(setq org-src-fontify-natively t)
+
 (setq auto-mode-alist
       (append
        '(("\\.js\\'" . js2-mode))
