@@ -24,8 +24,6 @@
 
 #+BEGIN_SRC emacs-lisp
 
-
-
 (if (string-match "XEmacs\\|Lucid" emacs-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; XEmacs
@@ -58,12 +56,12 @@
 ;;;关闭欢迎
 (setq inhibit-splash-screen 1)
 
-
 #+END_SRC
+
 ** 视觉层配置
 
-
 #+BEGIN_SRC emacs-lisp
+
 (put 'set-goal-column 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
@@ -94,13 +92,12 @@
       monokai-orange         "#D19A66"
       monokai-yellow         "#E5C07B")
 
-
-
 #+END_SRC
 
 ** 快捷键配置
 
 #+BEGIN_SRC emacs-lisp
+
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
@@ -114,6 +111,7 @@
 #+END_SRC
 
 ** 常用变量
+
 #+BEGIN_SRC emacs-lisp
 
 (delete-selection-mode 1)
@@ -123,7 +121,9 @@
 #+END_SRC
 
 ** 自动补全
+
 #+BEGIN_SRC emacs-lisp
+
 (global-company-mode 1)
 (ivy-mode t)
 (setq ivy-use-virtual-buffers t)
@@ -154,6 +154,7 @@
 ** 文件操作
 
 #+BEGIN_SRC emacs-lisp
+
 (put 'dired-find-alternate-file 'disabled nil)
 ;; 主动加载 Dired Mode
 ;; (require 'dired)
@@ -175,6 +176,7 @@
 ** Org相关
 
 #+BEGIN_SRC emacs-lisp
+
 (setq org-agenda-files '("~/.emacs.d/org-file"))
 
 ;;org语法高亮
@@ -184,6 +186,7 @@
 #+END_SRC
 
 ** Html配置
+
 #+BEGIN_SRC emacs-lisp
 
 (setq auto-mode-alist
