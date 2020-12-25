@@ -1,6 +1,6 @@
 
 * Jincai' Emacs configurations
-
+  
 
 ** 插件管理(Must Top)
 
@@ -108,6 +108,11 @@
 (setq recentf-max-menu-item 10)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key "\C-s" 'swiper)
+
+;;选中区域
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
 #+END_SRC
 
 ** 常用变量
@@ -120,7 +125,7 @@
 
 #+END_SRC
 
-** 自动补全
+** 自动补全,缩进
 
 #+BEGIN_SRC emacs-lisp
 
@@ -148,6 +153,12 @@
 					try-complete-lisp-symbol-partially
 					try-complete-lisp-symbol))
 
+(defun my-web-mode-indent-setup ()
+  (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
+  (setq web-mode-css-indent-offset 2)    ; web-mode, css in html file
+  (setq web-mode-code-indent-offset 2)   ; web-mode, js code in html file
+  )
+(add-hook 'web-mode-hook 'my-web-mode-indent-setup)
 
 #+END_SRC
 
@@ -173,26 +184,3 @@
 
 #+END_SRC
 
-** Org相关
-
-#+BEGIN_SRC emacs-lisp
-
-(setq org-agenda-files '("~/.emacs.d/org-file"))
-
-;;org语法高亮
-(require 'org)
-(setq org-src-fontify-natively t)
-
-#+END_SRC
-
-** Html配置
-
-#+BEGIN_SRC emacs-lisp
-
-(setq auto-mode-alist
-      (append
-       '(("\\.js\\'" . js2-mode))
-       '(("\\.html\\'" . web-mode))
-       auto-mode-alist))
-
-#+END_SRC

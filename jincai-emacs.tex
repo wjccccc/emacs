@@ -1,3 +1,42 @@
+% Created 2020-12-24 四 15:17
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{jincai}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={jincai},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.3.1 (Org mode 9.1.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Jincai' Emacs configurations}
+\label{sec:org5c4a345}
+
+
+\subsection{插件管理(Must Top)}
+\label{sec:org1750056}
+
+\begin{verbatim}
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -10,6 +49,13 @@
 (setq package-check-signature nil)
 (package-initialize)
 
+\end{verbatim}
+
+\subsection{启动初始化}
+\label{sec:org3e69e01}
+
+\begin{verbatim}
+
 (if (string-match "XEmacs\\|Lucid" emacs-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; XEmacs
@@ -17,7 +63,7 @@
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (progn
      (if (file-readable-p "~/.xemacs/init.el")
-        (load "~/.xemacs/init.el" nil t))
+	(load "~/.xemacs/init.el" nil t))
   )
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;; GNU-Emacs
@@ -41,6 +87,13 @@
 )
 ;;;关闭欢迎
 (setq inhibit-splash-screen 1)
+
+\end{verbatim}
+
+\subsection{视觉层配置}
+\label{sec:orgef0ea4c}
+
+\begin{verbatim}
 
 (put 'set-goal-column 'disabled nil)
 (put 'scroll-left 'disabled nil)
@@ -72,6 +125,13 @@
       monokai-orange         "#D19A66"
       monokai-yellow         "#E5C07B")
 
+\end{verbatim}
+
+\subsection{快捷键配置}
+\label{sec:org50b9f8c}
+
+\begin{verbatim}
+
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
@@ -82,14 +142,23 @@
 (setq recentf-max-menu-item 10)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 (global-set-key "\C-s" 'swiper)
+\end{verbatim}
 
-;;选中区域
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+\subsection{常用变量}
+\label{sec:org0ab26a7}
+
+\begin{verbatim}
 
 (delete-selection-mode 1)
 (global-hungry-delete-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
+
+\end{verbatim}
+
+\subsection{自动补全,缩进}
+\label{sec:org0d9b728}
+
+\begin{verbatim}
 
 (global-company-mode 1)
 (ivy-mode t)
@@ -122,6 +191,13 @@
   )
 (add-hook 'web-mode-hook 'my-web-mode-indent-setup)
 
+\end{verbatim}
+
+\subsection{文件操作}
+\label{sec:org202c58b}
+
+\begin{verbatim}
+
 (put 'dired-find-alternate-file 'disabled nil)
 ;; 主动加载 Dired Mode
 ;; (require 'dired)
@@ -136,3 +212,7 @@
 
 ;;
 ;;(global-auto-revert-mode 1)
+
+
+\end{verbatim}
+\end{document}
