@@ -3,7 +3,7 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 (add-to-list 'package-archives '("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
@@ -97,6 +97,9 @@
   (define-key company-active-map (kbd "C-n") #'company-select-next)                                                                                                     
   (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
+;; 设置 org-agenda 打开快捷键
+(global-set-key (kbd "C-c a") 'org-agenda)
+
 (delete-selection-mode 1)
 (global-hungry-delete-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -146,3 +149,6 @@
 
 ;;
 ;;(global-auto-revert-mode 1)
+
+;; 设置默认 Org Agenda 文件目录
+(setq org-agenda-files '("~/.emacs.d/org-file"))

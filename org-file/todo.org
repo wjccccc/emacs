@@ -3,13 +3,16 @@
 ** Emacs学习
 *** TODO 搭建完整Python IDE
     DEADLINE: <2021-01-01 五> SCHEDULED: <2020-12-23 三>
+
 **** DONE 采用Org管理init
 
 
 ** TODO CCIE研究
+
 *** 取证
     DEADLINE: <2021-03-31 三>
-*** TODO 社群资料收集
+
+*** DONE 社群资料收集
     DEADLINE: <2020-12-24 四>
 
 
