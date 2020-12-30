@@ -114,7 +114,7 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;多区域编辑                                                                                                                                                            
-(global-set-key (kbd "M-s e") 'iedit-mode)                                                                                                                              
+(global-set-key (kbd "C-c o") 'iedit-mode)                                                                                                                              
                                                                                                                                                                         
 ;;C-n C-p替换M-n M-p                                                                                                                                                    
 (with-eval-after-load 'company                                                                                                                                          
@@ -122,6 +122,12 @@
   (define-key company-active-map (kbd "M-p") nil)                                                                                                                       
   (define-key company-active-map (kbd "C-n") #'company-select-next)                                                                                                     
   (define-key company-active-map (kbd "C-p") #'company-select-previous))
+
+;;for python配置
+;; Fixing a key binding bug in elpy
+;;(yas-reload-all)
+;;(add-hook 'prog-mode-hook #'yas-minor-mode)
+;;(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 
 ;; 设置 org-agenda 打开快捷键
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -202,5 +208,34 @@
 
 ;; 设置默认 Org Agenda 文件目录
 (setq org-agenda-files '("~/.emacs.d/org-file"))
+
+#+END_SRC
+** python配置
+#+BEGIN_SRC emacs-lisp
+(elpy-enable)
+(require 'auto-virtualenvwrapper)
+(add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate)
+(add-hook 'projectile-after-switch-project-hook #'auto-virtualenvwrapper-activate) 
+;; grammal check: flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode);global enable
+                    ; close flymake,  start flycheck
+(when (require 'flycheck nil t)
+  (setq elpy-modules(delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; virutal environment:  virtualenvwrapper
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(venv-initialize-eshell)
+(setq venv-location "~/.emacs.d/py-file"); setup virtual environment folder
+;; if there multiple folder:
+;; (setq venv-location '("~/myvenv-1/"
+;;                       "~/myvenv-2/"))
+;; M-x venv-workon open virtual environment
+
+;; enable elpy jedi backend
+(setq elpy-rpc-backend "jedi")
+;; 在python模式中自动启用
+(add-hook 'python-mode-hook 'anaconda-mode)
 
 #+END_SRC
