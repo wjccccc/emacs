@@ -1,12 +1,15 @@
-#!/usr/bin/python3
+
+#/usr/bin/python
+import time
 
 
-f1=1
-f2=1
+localtime = time.localtime(time.time())
 
-for i in range(1,22):
-    print '%12ld %12ld'%(f1,f2),
-    if(i%3)==0:
-        print ''
-    f1=f1+f2
-    f2=f1+f2
+ 
+import calendar
+ 
+cal = calendar.month(2016, 1)
+print "以下输出2016年1月份的日历:"
+print cal
+print localtime
+print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())

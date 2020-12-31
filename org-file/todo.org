@@ -1,8 +1,10 @@
 * -——>2021.5时间计划
 
-** Emacs学习
-*** TODO 搭建完整Python IDE
+** Python学习
+*** DONE 搭建完整Python IDE
     DEADLINE: <2021-01-01 五> SCHEDULED: <2020-12-23 三>
+*** TODO Python语言基础
+    DEADLINE: <2020-12-31 四> SCHEDULED: <2020-12-30 三>
 
 **** DONE 采用Org管理init
 

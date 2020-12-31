@@ -115,6 +115,7 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+(add-hook 'prog-mode-hook 'smartparens-mode)
 ;;括号高亮
 (define-advice show-paren-function (:around (fn) fix-show-paren-function)
   "Highlight enclosing parens."
@@ -140,6 +141,10 @@
   (setq web-mode-code-indent-offset 2)   ; web-mode, js code in html file
   )
 (add-hook 'web-mode-hook 'my-web-mode-indent-setup)
+;;python
+(setq tab-width 4)
+(set-variable 'python-indent-offset 4)
+(setq  python-indent-guess-indent-offset-verbose nil)
 
 (put 'dired-find-alternate-file 'disabled nil)
 ;; 主动加载 Dired Mode
@@ -160,6 +165,7 @@
 (setq org-agenda-files '("~/.emacs.d/org-file"))
 
 (elpy-enable)
+
 (require 'auto-virtualenvwrapper)
 (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate)
 (add-hook 'projectile-after-switch-project-hook #'auto-virtualenvwrapper-activate) 
@@ -183,4 +189,4 @@
 ;; enable elpy jedi backend
 (setq elpy-rpc-backend "jedi")
 ;; 在python模式中自动启用
-(add-hook 'python-mode-hook 'anaconda-mode)
+;;(add-hook 'python-mode-hook 'anaconda-mode)
