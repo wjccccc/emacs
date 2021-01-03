@@ -1,15 +1,8 @@
-
 #/usr/bin/python
-import time
 
+var1='hellp!world!'
+var2="python here"
 
-localtime = time.localtime(time.time())
-
- 
-import calendar
- 
-cal = calendar.month(2016, 1)
-print "以下输出2016年1月份的日历:"
-print cal
-print localtime
-print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+print "var1[0]:",var1[0]
+print "var1[0:1]",var1[0:2]
+print var1[:-1]*2
