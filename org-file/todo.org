@@ -4,21 +4,21 @@
 *** DONE 搭建完整Python IDE
     DEADLINE: <2021-01-01 五> SCHEDULED: <2020-12-23 三>
 *** TODO Python语言基础
-    DEADLINE: <2020-12-31 四> SCHEDULED: <2020-12-30 三>
+    DEADLINE: <2021-02-01 一> SCHEDULED: <2020-12-30 三>
 
 **** DONE 采用Org管理init
 
 
-** TODO CCIE研究
+** CCIE研究
 
-*** 取证
+*** TODO CCIE取证
     DEADLINE: <2021-03-31 三>
 
 *** DONE 社群资料收集
     DEADLINE: <2020-12-24 四>
 
 ** 纳豆产品
-*** TODO 京东秒杀活动
+*** DONE 京东秒杀活动
     SCHEDULED: <2021-01-20 三 00:00>
 
     
