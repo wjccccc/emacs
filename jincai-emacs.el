@@ -104,7 +104,11 @@
 ;;(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 
 ;; 设置 org-agenda 打开快捷键
-(global-set-key (kbd "C-c a") 'org-agenda)
+;;(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cc" 'org-capture)
 
 (delete-selection-mode 1)
 (global-hungry-delete-mode t)
@@ -162,7 +166,26 @@
 ;;(global-auto-revert-mode 1)
 
 ;; 设置默认 Org Agenda 文件目录
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; 设置默认 Org Agenda 文件目录
 (setq org-agenda-files '("~/.emacs.d/org-file"))
+(setq org-default-notes-file "~/.emacs.d/org-file/notes.org")
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
 
 (elpy-enable)
 

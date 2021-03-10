@@ -1,0 +1,23 @@
+;; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with C-x C-f and enter text in its buffer.
+
+* 高精度项目维护工作
+
+** DONE 北斗大厦楼顶安置
+*** DONE 现场环境考察
+    DEADLINE: <2021-02-07 日> SCHEDULED: <2022-02-05 六>
+    协调工程部
+
+*** DONE 借用合芯星通电源
+    对方负责人：于滨  13911182792
+    
+*** TODO cors系统了解**** 俗语
+     CORS ：利用多基站网络RTK技术建立的连续运行（卫星定位服务）参考站
+     （Continuously Operating Reference Stations），缩写为CORS
+**** DONE 设备
+     IP:10.212.160.67,68,69
+     user:admin pass: ~abc123456
+** TODO 施工队咨询
+   - State "DONE"       from "CANCELLED"  [2021-03-05 五 14:38]
+   - State "CANCELLED"  from "TODO"       [2021-03-05 五 14:38] \\
+     ceshi

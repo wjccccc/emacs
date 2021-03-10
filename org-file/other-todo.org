@@ -1,3 +1,4 @@
+
 * -——>2021.5时间计划
 
 ** Python学习
@@ -7,7 +8,6 @@
     DEADLINE: <2021-02-01 一> SCHEDULED: <2020-12-30 三>
 
 **** DONE 采用Org管理init
-
 
 ** CCIE研究
 
@@ -21,4 +21,10 @@
 *** DONE 京东秒杀活动
     SCHEDULED: <2021-01-20 三 00:00>
 
-    
+** TODO bitcoin values
+   SCHEDULED: <2021-01-25 一 15:00>
+   *** (eos+bsv+bch)*3
+   6868.64+5712.71+4205.57
+   =16786.92
+
+   

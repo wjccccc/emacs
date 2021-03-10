@@ -21,10 +21,7 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-
 (require 'org-install)
 (require 'ob-tangle)
 (org-babel-load-file (expand-file-name "jincai-emacs.org" user-emacs-directory))
-
-
 
