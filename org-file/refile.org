@@ -1,0 +1,15 @@
+* NEXT network study
+DEADLINE: <2021-04-30 五> SCHEDULED: <2021-03-11 四>
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+#+CAPTION: Clock summary at [2021-03-12 五 11:21]
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:
+
+:PROPERTIES:
+:STYLE: habit
+:REPEAT_TO_STATE: NEXT
+:END:
+
+百度网盘里的ccna，ccnp视频下载，并观看学习

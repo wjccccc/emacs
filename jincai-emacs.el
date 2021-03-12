@@ -1,11 +1,3 @@
-
-* Jincai' Emacs configurations
-  
-
-** 插件管理(Must Top)
-
-#+BEGIN_SRC emacs-lisp
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -17,12 +9,6 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
 (setq package-check-signature nil)
 (package-initialize)
-
-#+END_SRC
-
-** 启动初始化
-
-#+BEGIN_SRC emacs-lisp
 
 (if (string-match "XEmacs\\|Lucid" emacs-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,12 +42,6 @@
 ;;;关闭欢迎
 (setq inhibit-splash-screen 1)
 
-#+END_SRC
-
-** 视觉层配置
-
-#+BEGIN_SRC emacs-lisp
-
 (put 'set-goal-column 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
@@ -92,11 +72,6 @@
       monokai-orange         "#D19A66"
       monokai-yellow         "#E5C07B")
 
-#+END_SRC
-
-** 快捷键配置
-
-#+BEGIN_SRC emacs-lisp
 (defun open-init-file()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
@@ -135,24 +110,9 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cc" 'org-capture)
 
-#+END_SRC
-
-#+RESULTS:
-: org-capture
-
-** 常用变量
-
-#+BEGIN_SRC emacs-lisp
-
 (delete-selection-mode 1)
 (global-hungry-delete-mode t)
 (fset 'yes-or-no-p 'y-or-n-p)
-
-#+END_SRC
-
-** 自动补全,缩进
-
-#+BEGIN_SRC emacs-lisp
 
 (global-company-mode 1)
 (ivy-mode t)
@@ -190,12 +150,6 @@
 (set-variable 'python-indent-offset 4)
 (setq  python-indent-guess-indent-offset-verbose nil)
 
-#+END_SRC
-
-** 文件操作
-
-#+BEGIN_SRC emacs-lisp
-
 (put 'dired-find-alternate-file 'disabled nil)
 ;; 主动加载 Dired Mode
 ;; (require 'dired)
@@ -211,11 +165,6 @@
 ;;
 ;;(global-auto-revert-mode 1)
 
-
-#+END_SRC
-
-** Org配置
-#+BEGIN_SRC emacs-lisp
 (require 'org)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (setq org-directory "~/.emacs.d/org-file")
@@ -265,9 +214,7 @@
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
               ("h" "Habit" entry (file "~/.emacs.d/org-file/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
-#+END_SRC
-** python配置
-#+BEGIN_SRC emacs-lisp
+
 (elpy-enable)
 
 (require 'auto-virtualenvwrapper)
@@ -295,9 +242,6 @@
 ;; 在python模式中自动启用
 ;;(add-hook 'python-mode-hook 'anaconda-mode)
 
-#+END_SRC
-** Buffer管理
-#+BEGIN_SRC emacs-lisp
 ;;
 (defun kill-all-buffer ()
   "Kill all buffer."
@@ -308,4 +252,3 @@
   "Close all of other buffer."
   (interactive)
   (dolist (buffer (delq (current-buffer) (buffer-list))) (kill-buffer buffer)))
-#+END_SRC
