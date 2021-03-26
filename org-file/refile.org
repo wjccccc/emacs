@@ -1,15 +1,45 @@
-* NEXT network study
-DEADLINE: <2021-04-30 五> SCHEDULED: <2021-03-11 四>
-#+BEGIN: clocktable :maxlevel 2 :scope subtree
-#+CAPTION: Clock summary at [2021-03-12 五 11:21]
-| Headline     | Time   |
-|--------------+--------|
-| *Total time* | *0:00* |
-#+END:
 
-:PROPERTIES:
-:STYLE: habit
-:REPEAT_TO_STATE: NEXT
-:END:
+* TODO 壳牌北邮站布线包管测量
+:LOGBOOK:
+  CLOCK: [2021-03-25 四 13:48]--[2021-03-25 四 13:49] =>  0:01
+  :END:
+  [2021-03-25 四 13:48]
+  [[file:~/.emacs.d/jincai-emacs.org::*Jincai'%20Emacs%20configurations][Jincai' Emacs configurations]]
+* DONE 新冠肺炎疫苗第二针注射
+  :LOGBOOK:
+  CLOCK: [2021-03-26 五 14:41]
+  :END:
+  [2021-03-26 五 14:41]
+** TODO 螺丝
+   京东今天配送
+   :LOGBOOK:
+   CLOCK: [2021-03-25 四 13:39]--[2021-03-25 四 13:40] =>  0:01
+   :END:
+   [2021-03-25 四 13:39]
+  
 
-百度网盘里的ccna，ccnp视频下载，并观看学习
+** TODO network study
+   DEADLINE: <2021-04-30 五> SCHEDULED: <2021-03-11 四>
+   #+BEGIN: clocktable :maxlevel 2 :scope subtree
+   #+CAPTION: Clock summary at [2021-03-12 五 11:21]
+   | Headline     | Time   |
+   |--------------+--------|
+   | *Total time* | *0:00* |
+   #+END:
+
+   :PROPERTIES:
+   :STYLE: habit
+   :REPEAT_TO_STATE: NEXT
+   :END:
+
+    baidu netdisk :ccna，ccnp, to study!!!
+
+***** TODO 华瑞大厦手续
+
+      第三方需要填得表格
+      公司需要提供设备安装得许可
+      :LOGBOOK:
+      CLOCK: [2021-03-25 四 13:41]--[2021-03-25 四 13:42] =>  0:01
+      :END:
+      [2021-03-25 四 13:41]
+      [[file:~/.emacs.d/org-file/refile.org::*%E9%80%81%E8%9E%BA%E4%B8%9D][送螺丝]]
