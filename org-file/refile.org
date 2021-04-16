@@ -6,9 +6,6 @@
   [2021-03-25 四 13:48]
   [[file:~/.emacs.d/jincai-emacs.org::*Jincai'%20Emacs%20configurations][Jincai' Emacs configurations]]
 * DONE 新冠肺炎疫苗第二针注射
-  :LOGBOOK:
-  CLOCK: [2021-03-26 五 14:41]
-  :END:
   [2021-03-26 五 14:41]
 ** DONE 螺丝
    京东今天配送
@@ -60,13 +57,14 @@ SCHEDULED: <2021-03-30 二 .+1d/3d>
 :REPEAT_TO_STATE: NEXT
 :END:
 * WAITING 积分                                                      :WAITING:
-  - State "WAITING"    from "NEXT"       [2021-03-30 二 16:55] \\
-    每周五 9：00 交行信用卡
-最红5积分，交行，周五
-[2021-03-30 二 10:54]
+  - State "WAITING"    from "NEXT"       
+  [2021-03-30 二 16:55]
+  每周五 9：00 交行信用卡
+  最红5积分，交行，周五
+  [2021-03-30 二 10:54]
 PEAT_TO_STATE: NEXT
 :END:
-* TODO 布线进场
+* DONE 布线进场
 周3,华瑞
 周4,天坛
 周5,北斗星通
@@ -74,3 +72,43 @@ PEAT_TO_STATE: NEXT
   CLOCK: [2021-03-30 二 16:54]--[2021-03-30 二 16:54] =>  0:00
   :END:
 [2021-03-30 二 16:54]
+** DONE 取阀兰
+   回龙观
+   :LOGBOOK:
+   CLOCK: [2021-04-07 三 10:48]--[2021-04-07 三 10:49] =>  0:01
+   :END:
+ [2021-04-07 三 10:48]
+** DONE 北斗楼顶施工
+   :LOGBOOK:
+   CLOCK: [2021-04-07 三 10:57]--[2021-04-07 三 10:57] =>  0:00
+   :END:
+ [2021-04-07 三 10:57]
+ [[file:~/.emacs.d/org-file/refile.org::*%E5%8F%91%E7%A5%A8][发票
+ ]]
+** DONE 贴标
+   华瑞完成
+   北斗大厦完成
+   天坛
+     铺垫
+     贴标
+     固定避雷针
+   :LOGBOOK:
+   CLOCK: [2021-04-08 四 11:33]--[2021-04-08 四 11:34] =>  0:01
+   :END:
+* DONE 发票
+  
+  还差配重块，玻璃胶，扳手
+[2021-04-07 三 10:56]
+* linux文件乱码处理办法:
+  通过inode修改cd
+  sudo find . -inum 283766357 -exec convmv -f gbk -t  utf-8 --notest {} \
+  :LOGBOOK:
+  CLOCK: [2021-04-13 二 12:10]--[2021-04-14 三 10:16] => 22:06
+  :END:
+  [2021-04-13 二 12:10]
+  amarok中文乱码解决
+  mid3iconv *.mp3 -e gbk
+  convmv -f gbk -t utf-8 --notest *.mp3
+
+  [2021-04-14 三 10:16]
+
