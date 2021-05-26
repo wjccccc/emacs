@@ -56,8 +56,7 @@ SCHEDULED: <2021-03-30 二 .+1d/3d>
 :STYLE: habit
 :REPEAT_TO_STATE: NEXT
 :END:
-* WAITING 积分                                                      :WAITING:
-  - State "WAITING"    from "NEXT"       
+* WAITING 积分       "WAITING"    from "NEXT"       
   [2021-03-30 二 16:55]
   每周五 9：00 交行信用卡
   最红5积分，交行，周五
@@ -111,4 +110,32 @@ PEAT_TO_STATE: NEXT
   convmv -f gbk -t utf-8 --notest *.mp3
 
   [2021-04-14 三 10:16]
+*  :NOTE:新能源能量密度
+  北汽2000款eu5 
+  车型BJ7000C5DC-BEV 180.05Wh/kg //车辆数据表
+  车型BJ7000c5d3-BEV 140Wh/kg
+  北汽eu7 144.4Wh/kg
+  :LOGBOOK:
+  CLOCK: [2021-05-06 四 14:53]
+  :END:
+[2021-05-06 四 14:53]
+* TODO ros安装与测试
+
+  wiki install
+  ros update timeout 解决
+
+  更改 /usr/lib/python3/dist-packages/rosdep2下的三个文件sources_list.py、gbpdistro_support.py、rep3.py
+  中的DOWNLOAD_TIMEOUT = 15.0值，改大一点就可以了。
+
+
+  第一步，打开一个终端测试roscore是否能正常启动，使用ROS必须保证roscore运行：
+  $ roscore
+  第二步，新开启一个终端，执行以下命令：
+  
+  $ rosrun turtlesim turtlesim_node
+  第三步，再开启一个终端，执行以下命令：
+
+  $ rosrun turtlesim turtle_teleop_key
+  
+  [2021-05-26 三 10:47]
 
