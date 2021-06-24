@@ -1,141 +1,251 @@
+* 工作
+** DONE ros安装与测试
 
-* DONE 壳牌北邮站布线包管测量
-:LOGBOOK:
-  CLOCK: [2021-03-25 四 13:48]--[2021-03-25 四 13:49] =>  0:01
-  :END:
-  [2021-03-25 四 13:48]
-  [[file:~/.emacs.d/jincai-emacs.org::*Jincai'%20Emacs%20configurations][Jincai' Emacs configurations]]
-* DONE 新冠肺炎疫苗第二针注射
-  [2021-03-26 五 14:41]
-** DONE 螺丝
-   京东今天配送
-   :LOGBOOK:
-   CLOCK: [2021-03-25 四 13:39]--[2021-03-25 四 13:40] =>  0:01
-   :END:
-   [2021-03-25 四 13:39]
+   wiki install
+   ros update timeout 解决
+
+   更改 /usr/lib/python3/dist-packages/rosdep2下的三个文件sources_list.py、gbpdistro_support.py、rep3.py
+   中的DOWNLOAD_TIMEOUT = 15.0值，改大一点就可以了。
+
+
+   第一步，打开一个终端测试roscore是否能正常启动，使用ROS必须保证roscore运行：
+   $ roscore
+   第二步，新开启一个终端，执行以下命令：
   
+   $ rosrun turtlesim turtlesim_node
+   第三步，再开启一个终端，执行以下命令：
 
-** TODO network study
-   DEADLINE: <2021-04-30 五> SCHEDULED: <2021-03-11 四>
-   #+BEGIN: clocktable :maxlevel 2 :scope subtree
-   #+CAPTION: Clock summary at [2021-03-12 五 11:21]
-   | Headline     | Time   |
-   |--------------+--------|
-   | *Total time* | *0:00* |
-   #+END:
-
-   :PROPERTIES:
-   :STYLE: habit
-   :REPEAT_TO_STATE: NEXT
-   :END:
-
-    baidu netdisk :ccna，ccnp, to study!!!
-
-    
-***** DONE 华瑞大厦手续
-
-      第三方需要填得表格
-      公司需要提供设备安装得许可
-      :LOGBOOK:
-      CLOCK: [2021-03-25 四 13:41]--[2021-03-25 四 13:42] =>  0:01
-      :END:
-      [2021-03-25 四 13:41]
-      [[file:~/.emacs.d/org-file/refile.org::*%E9%80%81%E8%9E%BA%E4%B8%9D][送螺丝]]
-* NEXT 基金
-
-交银鸿光一年混合A 011256   10w
-前海开源聚慧三年持有混合 011287  10w
-易方达裕丰回报债券 000171 5w
-中银多策略灵活配置A 000572 3w
-
-
-[2021-03-30 二 10:27]
-
-SCHEDULED: <2021-03-30 二 .+1d/3d>
-:PROPERTIES:
-:STYLE: habit
-:REPEAT_TO_STATE: NEXT
-:END:
-* WAITING 积分       "WAITING"    from "NEXT"       
-  [2021-03-30 二 16:55]
-  每周五 9：00 交行信用卡
-  最红5积分，交行，周五
-  [2021-03-30 二 10:54]
-PEAT_TO_STATE: NEXT
-:END:
-* DONE 布线进场
-周3,华瑞
-周4,天坛
-周5,北斗星通
-  :LOGBOOK:
-  CLOCK: [2021-03-30 二 16:54]--[2021-03-30 二 16:54] =>  0:00
-  :END:
-[2021-03-30 二 16:54]
-** DONE 取阀兰
-   回龙观
-   :LOGBOOK:
-   CLOCK: [2021-04-07 三 10:48]--[2021-04-07 三 10:49] =>  0:01
-   :END:
- [2021-04-07 三 10:48]
-** DONE 北斗楼顶施工
-   :LOGBOOK:
-   CLOCK: [2021-04-07 三 10:57]--[2021-04-07 三 10:57] =>  0:00
-   :END:
- [2021-04-07 三 10:57]
- [[file:~/.emacs.d/org-file/refile.org::*%E5%8F%91%E7%A5%A8][发票
- ]]
-** DONE 贴标
-   华瑞完成
-   北斗大厦完成
-   天坛
-     铺垫
-     贴标
-     固定避雷针
-   :LOGBOOK:
-   CLOCK: [2021-04-08 四 11:33]--[2021-04-08 四 11:34] =>  0:01
-   :END:
-* DONE 发票
+   $ rosrun turtlesim turtle_teleop_key
   
-  还差配重块，玻璃胶，扳手
-[2021-04-07 三 10:56]
-* linux文件乱码处理办法:
-  通过inode修改cd
-  sudo find . -inum 283766357 -exec convmv -f gbk -t  utf-8 --notest {} \
-  :LOGBOOK:
-  CLOCK: [2021-04-13 二 12:10]--[2021-04-14 三 10:16] => 22:06
-  :END:
-  [2021-04-13 二 12:10]
-  amarok中文乱码解决
-  mid3iconv *.mp3 -e gbk
-  convmv -f gbk -t utf-8 --notest *.mp3
-
-  [2021-04-14 三 10:16]
-*  :NOTE:新能源能量密度
-  北汽2000款eu5 
-  车型BJ7000C5DC-BEV 180.05Wh/kg //车辆数据表
-  车型BJ7000c5d3-BEV 140Wh/kg
-  北汽eu7 144.4Wh/kg
-  :LOGBOOK:
-  CLOCK: [2021-05-06 四 14:53]
-  :END:
-[2021-05-06 四 14:53]
-* TODO ros安装与测试
-
-  wiki install
-  ros update timeout 解决
-
-  更改 /usr/lib/python3/dist-packages/rosdep2下的三个文件sources_list.py、gbpdistro_support.py、rep3.py
-  中的DOWNLOAD_TIMEOUT = 15.0值，改大一点就可以了。
-
-
-  第一步，打开一个终端测试roscore是否能正常启动，使用ROS必须保证roscore运行：
-  $ roscore
-  第二步，新开启一个终端，执行以下命令：
+   [2021-05-26 三 10:47]
+** DONE 布线进场 
+   周3,华瑞
+   周4,天坛
+   周5,北斗星通
+   :LOGBOOK:
+   CLOCK: [2021-03-30 二 16:54]--[2021-03-30 二 16:54] =>  0:00
+   :END:
+ [2021-03-30 二 16:54]
+*** DONE 取阀兰
+    回龙观
+    :LOGBOOK:
+    CLOCK: [2021-04-07 三 10:48]--[2021-04-07 三 10:49] =>  0:01
+    :END:
+  [2021-04-07 三 10:48]
+*** DONE 北斗楼顶施工
+    :LOGBOOK:
+    CLOCK: [2021-04-07 三 10:57]--[2021-04-07 三 10:57] =>  0:00
+    :END:
+  [2021-04-07 三 10:57]
+  [[file:~/.emacs.d/org-file/refile.org::*%E5%8F%91%E7%A5%A8][发票
+  ]]
+*** DONE 贴标
+    华瑞完成
+    北斗大厦完成
+    天坛
+      铺垫
+      贴标
+      固定避雷针
+    :LOGBOOK:
+    CLOCK: [2021-04-08 四 11:33]--[2021-04-08 四 11:34] =>  0:01
+    :END:
+ 
+** DONE 发票
   
-  $ rosrun turtlesim turtlesim_node
-  第三步，再开启一个终端，执行以下命令：
+   还差配重块，玻璃胶，扳手
+ [2021-04-07 三 10:56]
+* 薅羊毛
+** TODO 5积分
+   每周五 9：00 交行信用卡
+   最红5积分，交行，周五
+   [2021-03-30 二 10:54]
+* lINUX
+** linux文件乱码处理办法:
+*** 通过inode修改
+   sudo find . -inum 283766357 -exec convmv -f gbk -t  utf-8 --notest {} \
+   :LOGBOOK:
+   CLOCK: [2021-04-13 二 12:10]--[2021-04-14 三 10:16] => 22:06
+   :END:
+   [2021-04-13 二 12:10]
+*** amarok中文乱码解决
+   mid3iconv *.mp3 -e gbk
+   convmv -f gbk -t utf-8 --notest *.mp3
+   [2021-04-14 三 10:16]
+** 免费ssl证书签发
+ Let's Encrypt作为一个公共且免费SSL的项目逐渐被广大用户传播和使用，是由Mozilla、Cisco、Akamai、IdenTrust、EFF等组织人员发起，主要的目的也是为了推进网站从HTTP向HTTPS过度的进程，目前已经有越来越多的商家加入和赞助支持。
 
-  $ rosrun turtlesim turtle_teleop_key
-  
-  [2021-05-26 三 10:47]
+ Let's Encrypt免费SSL证书的出现，也会对传统提供付费SSL证书服务的商家有不小的打击。到目前为止，Let's Encrypt获得IdenTrust交叉签名，这就是说可以应用且支持包括FireFox、Chrome在内的主流浏览器的兼容和支持，虽然目前是公测阶段，但是也有不少的用户在自有网站项目中正式使用起来。
 
+ 虽然目前Let's Encrypt免费SSL证书默认是90天有效期，但是我们也可以到期自动续约，
+ 不影响我们的尝试和使用。
+
+
+   CLOCK: [2021-05-27 四 10:06]--[2021-05-27 四 10:07] =>  0:01
+   :END:
+ [2021-05-27 四 10:06]
+ [2021-05-06 四 
+LOGBOOK:
+  CLOCK: [2021-06-15 二 10:25]--[2021-06-15 二 10:26] =>  0:01
+  :END:
+  [2021-06-15 二 10:25]
+
+** 复杂口令 
+    apg -M SNCL 16
+
+ ?Owl3glots
+ Eg)2drecdo
+ 0WubNayct_
+ Stags\Og3
+ Wron-Bliv6
+ fej3Slewd$
+
+   :LOGBOOK:
+   CLOCK: [2021-06-17 四 11:46]--[2021-06-17 四 11:49] =>  0:03
+   :END:
+ [2021-06-17 四 11:46]
+* TODO 北汽eu5
+** 询价
+   2021特供版  54900元  R500 452km
+   2019智潮  65000元    R600 501km
+   2021智潮  70000元    R600 501km
+** 新能源能量密度
+   车型BJ7000C5DC-BEV 180.05Wh/kg //车辆数据表
+   车型BJ7000c5d3-BEV  151.4wh/kg 动力电池容量和保护功能、行李箱容积、轮胎规格、标志标识等项目，不符合国家标准或管理规定
+   R600 501km  	车型BJ7000c5d4-BEV  144.44wh/kg
+   R550 452km  	车型BJ7000c5d5-BEV  151.40wh/kg
+   北汽eu70	144.4Wh/kg
+** TODO 京东金融ETC
+   更换etc设备去找乐速通公司 01087508050
+   :LOGBOOK:
+   CLOCK: [2021-05-31 一 16:04]--[2021-05-31 一 16:06] =>  0:02
+   :END:
+ [2021-05-31 一 16:02]
+* 理财         
+** 比特币
+*** TODO 杠杆操作
+
+**** 先看趋势,选择做空,or 做多
+**** 止损点: 开仓均价+1(-1), 挂50%
+**** 火币的止损单不处理避免办法: 按照最优5,10,20档挂单
+**** 切忌: 追高加仓,突发单边慎重加仓位
+
+** 基金
+   交银鸿光一年混合A 011256   10w
+   前海开源聚慧三年持有混合 011287  10w
+   易方达裕丰回报债券 000171 5w
+
+
+
+ [2021-03-30 二 10:27]
+
+ SCHEDULED: <2021-03-30 二 .+1d/3d>
+ :PROPERTIES:
+ :STYLE: habit
+ :REPEAT_TO_STATE: NEXT
+ :END:
+
+** 预测方面看来我是个白痴 
+   :LOGBOOK:
+   CLOCK: [2021-06-16 三 16:10]--[2021-06-16 三 16:10] =>  0:00
+   :END:
+ [2021-06-16 三 16:10]
+* org-mode
+** 文档结构
+*** visibility cycling
+    + TAB 
+      - 折叠（显示1级headline）
+      - 显示儿子headline
+      - 全部显示
+    + S-TAB
+      类似TAB，对象是整个buffer，有参数n显示到第n级headline
+    + C-u TAB（整个buffer）
+      - 折叠
+      - 显示目录（headline）
+      - 显示全部内容
+    + C-u C-u TAB（整个buffer）
+      设置成初始状态，默认是最大折叠状态
+    + C-u C-u C-u TAB（整个buffer）
+      显示全部内容
+    + C-c C-r
+      显示光标附近的内容
+      祖先只显示headline
+    + C-c C-k
+      显示所有headline
+    + C-c TAB
+      显示儿子headline
+      带参数n，显示n级后代headline
+    + C-c C-x b
+      在其他窗口中打开当前树
+    + C-c C-x v
+      复制选中的区域
+*** 设置初始状态
+    + #+STARTUP: overview
+      最大折叠状态
+    + #+STARTUP: content
+      显示目录（headline）
+    + #+STARTUP: showall
+      显示大部分（抽屉之类不显示）
+    + #+STARTUP: showverything
+      显示所有内容
+*** 移动命令
+    + C-c C-n
+      下一个headline
+    + C-c C-p
+      上一个headline
+    + C-c C-f
+      同级下一个headline
+    + C-c C-b
+      同级上一个headline
+    + C-c C-u
+      返回上一级headline
+    + C-c C-j
+      - [ ] 比较复杂，还弄不清楚
+*** 结构编辑
+    + M-RET
+      插入一个对象，光标位置决定效果
+      开始行开始和末尾位置都是插入效果
+      中间则会打断内容，分成两个对象
+      - headline
+      - plain list
+    + C-u M-RET
+      在当前headline后插入同级的headline
+    + C-u C-u M-RET
+      在父级headline末尾插入同级的headline
+    + C-RET
+      效果同C-u M-RET
+    + M-S-RET
+      插入一个同级 TODO headline（类似M-RET）
+    + C-S-RET
+      在同级末尾添加 TODO headline （类是C-RET）
+    + M-LEFT
+      提升一级
+    + M-RIGHT
+      降低一级
+    + M-S-LEFT
+      提升一级当前树（包括后代）
+    + M-S-RIGHT
+      降低一级当前树（包括后代）
+    + M-UP
+      向上移动树（包括后代），相对于同级移动，不是单个headline
+    + M-DOWN
+      向下移动树（包括后代），相对于同级移动，不是单个headline
+    + C-c @
+      选中树（包括后代），重复命令，扩展选中该树后面的一颗同级树
+    + C-c C-x C-w
+      移除树（包括后代），待参数n则移除n颗树
+    + C-c C-x M-w
+      复制树（包括后代），待参数n则移除n颗树
+    + C-c C-x C-y
+      粘贴树（有的话），自动调整到合适的层级
+    + C-c C-x c 
+      根据输入的数字创建克隆树
+    + C-c C-w
+      将树转接到其他树（非祖先）
+    + C-c ^
+      有选中区域则排序选中区域，否则排序儿子树
+    + C-x n s
+      暂时不清楚
+    + C-x n w
+      暂时不清楚
+    + C-x n b
+      暂时不清楚

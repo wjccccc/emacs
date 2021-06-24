@@ -128,6 +128,9 @@
 	(t (save-excursion
 	     (ignore-errors (backward-up-list))
 	     (funcall fn)))))
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+(add-hook 'prog-mode-hook 'show-paren-mode)
+(add-hook 'org-mode-hook 'show-paren-mode)
 
 (setq hippie-expand-try-function-list '(try-expand-debbrev
 					try-expand-debbrev-all-buffers
@@ -204,7 +207,8 @@
               ("r" "respond" entry (file "~/.emacs.d/org-file/refile.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
               ("n" "note" entry (file "~/.emacs.d/org-file/refile.org")
-               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+;;               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* %? \n%U\n%a\n" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree "~/.emacs.d/org-file/diary.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
               ("w" "org-protocol" entry (file "~/.emacs.d/org-file/refile.org")
