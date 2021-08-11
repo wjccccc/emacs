@@ -8,7 +8,7 @@
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 (add-to-list 'package-archives '("melpa-stable" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
 (setq package-check-signature nil)
-(package-initialize)
+;;(package-initialize)
 
 (if (string-match "XEmacs\\|Lucid" emacs-version)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -382,3 +382,20 @@
   "Close all of other buffer."
   (interactive)
   (dolist (buffer (delq (current-buffer) (buffer-list))) (kill-buffer buffer)))
+
+(require 'gnuplot-mode)                                               
+                                                                      
+;; specify the gnuplot executable (if other than "gnuplot")           
+(setq gnuplot-program "/usr/local/bin/gnuplot")                              
+                                                                      
+;; set gnuplot arguments (if other than "-persist")                   
+(setq gnuplot-flags "-persist -pointsize 2")                          
+                                                                      
+;; if you want, add a mode hook.  e.g., the following turns on        
+;; spell-checking for strings and comments and automatically cleans   
+;; up whitespace on save.                                             
+(add-hook 'gnuplot-mode-hook                                          
+          (lambda ()                                                  
+            (flyspell-prog-mode)                                      
+            (add-hook 'before-save-hook                               
+                      'whitespace-cleanup nil t)))
