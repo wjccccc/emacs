@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-capture-last-stored"
+ (filename . "~/.emacs.d/org-file/diary.org")
+ (front-context-string . "**** <2021-08-12")
+ (rear-context-string . "\n     纯纯粹粹纯纯粹粹次\n")
+ (position . 1308))
+)
