@@ -1,0 +1,14 @@
+#+TITLE:note
+#+STARTUP: hideall
+#+TAGS: [coding: shell python]
+#+TAGS: [shell: grep tail sed ssh]
+#+TAGS: [python: ipython pandas numpy]
+* 2021
+** 2021-08 August
+*** 2021-08-13 Friday
+**** <2021-08-13 Fri 17:30> - harbor service
+     :LOGBOOK:
+     CLOCK: [2021-08-13 Fri 17:30]--[2021-08-13 Fri 17:30] =>  0:00
+     :END:
+     阿里云测试机
+    121.199.25.209

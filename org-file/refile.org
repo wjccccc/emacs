@@ -1,3 +1,7 @@
+#+TAGS: [coding: shell python]
+#+TAGS: [shell: grep tail sed ssh]
+#+TAGS: [python: ipython pandas numpy]
+
 * 工作
 ** DONE ros安装与测试
 
