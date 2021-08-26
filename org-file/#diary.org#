@@ -294,21 +294,5 @@ kubectl delete pod myapp-pods
    
    删除svc
    kubectl delete svc mydb mynginx ...
-* 2021
-** 2021-08 August
-*** 2021-08-25 Wednesday
-**** <2021-08-25 Wed 22:17> - dddddddddddddddd
-     :LOGBOOK:
-     CLOCK: [2021-08-25 Wed 22:17]--[2021-08-25 Wed 22:17] =>  0:00
-     :END:
-     d
-**** <2021-08-25 Wed 22:18> - cccc
-     :LOGBOOK:
-     CLOCK: [2021-08-25 Wed 22:18]--[2021-08-25 Wed 22:18] =>  0:00
-     :END:
-     ddd
-**** <2021-08-25 Wed 22:19> - dddddddd
-     :LOGBOOK:
-     CLOCK: [2021-08-25 Wed 22:19]--[2021-08-25 Wed 22:19] =>  0:00
-     :END:
+
      

@@ -3,12 +3,114 @@
 #+TAGS: [coding: shell python]
 #+TAGS: [shell: grep tail sed ssh]
 #+TAGS: [python: ipython pandas numpy]
-* 2021
-** 2021-08 August
-*** 2021-08-13 Friday
-**** <2021-08-13 Fri 17:30> - harbor service
-     :LOGBOOK:
-     CLOCK: [2021-08-13 Fri 17:30]--[2021-08-13 Fri 17:30] =>  0:00
-     :END:
-     阿里云测试机
-    121.199.25.209
+* 2021-08 August
+** 2021-08-13 Friday
+*** <2021-08-13 Fri 17:30> - harbor service
+    :LOGBOOK:
+    CLOCK: [2021-08-13 Fri 17:30]--[2021-08-13 Fri 17:30] =>  0:00
+    :END:
+    阿里云测试机
+   121.199.25.209
+** TODO <2021-08-25 Wed 21:38> - dragonflay2.0
+   :LOGBOOK:
+   CLOCK: [2021-08-25 Wed 21:39]--[2021-08-25 Wed 21:40] =>  0:01
+   :END:
+   
+   docker pull dragonflyoss/manager:v0.3.0
+
+   Start manager
+
+   NOTE: Replace ${managerDockerImageId} with the ID obtained at the previous step.
+     
+   docker run -d --name manager --restart=always -p 8004:8004 ${managerDockerImageId}
+
+
+
+   After this Task
+   
+   After manager is installed, run the following commands to verify if manager is started, and if Port 8004 and 8003 is available.
+
+   telnet 127.0.0.1 8004
+
+
+   docker pull dragonflyoss/cdn:v0.3.0
+   Start cdn
+
+   NOTE: Replace ${cdnDockerImageId} with the ID obtained at the previous step.
+   
+   docker run -d --name cdn --restart=always -p 8001:8001 -p 8003:8003 -v /home/admin/ftp:/home/admin/ftp ${cdnDockerImageId} 
+   --download-port=8001
+
+
+   After this Task
+
+   After cdn is installed, run the following commands to verify if Nginx and cdn are started, and if Port 8001 and 8003 are available.
+
+   telnet 127.0.0.1 8001
+   telnet 127.0.0.1 8003
+** <2021-08-25 Wed 22:12> - dragonfly2 manager
+   :LOGBOOK:
+   CLOCK: [2021-08-25 Wed 22:12]--[2021-08-25 Wed 22:13] =>  0:01
+   :END:
+  启动报错 寻找redis 
+** <2021-08-26 Thu 10:58> - 资源管理器
+   :LOGBOOK:
+   CLOCK: [2021-08-26 Thu 14:26]
+   CLOCK: [2021-08-26 Thu 10:59]--[2021-08-26 Thu 11:00] =>  0:01
+   :END:
+   RS 查看更改😊label
+
+   kubectl get pod 
+   kubectl get pod --show-labels
+   kubectl label pod xxx-pod tier=xxx --overwrite=True
+
+
+   Deployment yaml文件举例
+   
+   apiVersion: extensin/v1beta1
+   kind:Deplyment
+   metedata:
+   	name:nginx-deployment
+   spec:
+   	replicas:3
+	template:
+		labels:
+			app:nginx
+
+		spec:
+			container:
+			- name:nginx
+			  image:nginx:1.7.9
+			  ports:
+			  - containerport:80
+
+	创建：
+	
+	kubectl create -f nginx.yaml --record ###record 记录操作
+	
+	查看
+	kubectl get deployment
+	kubectl get rs
+	kubectl log ...
+
+	扩容
+	
+	kubectl scale deployment nginx-deployment --replicas 10
+
+
+	更新
+	kubectl set image deployment/nginx-deployment nginx=imagenew:v2
+
+	回滚
+	kubectl rollout undo deployment/nginx-deployment 
+	kubectl rollout undo deployment/nginx-deployment --to-revision=2
+
+	
+	更新状态
+	kubectl rollout status deployment/nginx-deployment
+
+	kubectl rollout history ...
+
+
+	删除
+	kubectl delete daemonset --all
