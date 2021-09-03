@@ -1,314 +1,321 @@
-* <2021-08-21 六 20:27> - k8s cluster
-  :LOGBOOK:
-  CLOCK: [2021-08-21 六 20:28]--[2021-08-21 六 20:30] =>  0:02
-  :END:
-** k8s cluster install
+* 2021
+** <2021-08-21 六 20:27> - k8s cluster
+
+   :LOGBOOK:
+   CLOCK: [2021-08-21 六 20:28]--[2021-08-21 六 20:30] =>  0:02
+   :END:
+*** k8s cluster install
    
-*** 前提步骤：
-    永久关闭 swap
-    内核关闭 ipv6
-    内核启用 ipv4 ipv6 bridge
-    升级内核到4.4以上版本，3.x有不稳定情况
+**** 前提步骤：
+     永久关闭 swap
+     内核关闭 ipv6
+     内核启用 ipv4 ipv6 bridge
+     升级内核到4.4以上版本，3.x有不稳定情况
 
-    kube-proxy 开启ipvs的前置条件
-    modprobe br_netfilter
+     kube-proxy 开启ipvs的前置条件
+     modprobe br_netfilter
 
-    cat > /etc/sysconfig/modules/ipvs.modules <<EOF
-    #!/bin/bash
-    modprobe --ip_vs
-    modprobe --ip_vs_rr
-    modprobe --ip_vs_wrr
-    modprobe --ip_vs_sh
-    modprobe --nf_conntrack_ipv4
-    EOF
-
-    chmod 755 ipvs.modules
-    lsmod|grep -e ip_vs -e nf_conntrack_ipv4
-
-*** 安装docker
-    
-**** 依赖
-     yum install -y yum-utils device-mapper-persistent-data lvm2
-
-     yum-config-manager \
-      --add-repo \
-      http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-
-      yum update -y && yum install -y docker-ce
-
-      
-**** 创建docker目录
-      mkdir /etc/docker
-     
-     
-****  配置daemon
-      cat > /etc/docker/daemon.json <<EOF
-      { 
-       "exec-opts":["native.cgroupdriver-systemd"],
-       "log-driver":"json-file",
-       "log-opts":{
-          "max-size":"100m"
-	}
-
-      } # for elk 
-     
-      systemctl start docker
-      systemctl enable docker
-
-**** 安装kubeadmin（主从配置）
-     cat << EOF > /etc/yum.repos.d/kubernets.repo
-     [kubernetes]
-     name=kubernets
-     baseurl=http://mirrors.aliyun.com/kubernetes/yum/repo/kubernetes-el7-x86_64
-     enable=1
-     gpgcheck=0
-     repo_gpgcheck=0
-     gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-     http://mirrors.aliyun.com/kubernets/yum/doc/rpm-package-key.gpg
+     cat > /etc/sysconfig/modules/ipvs.modules <<EOF
+     #!/bin/bash
+     modprobe --ip_vs
+     modprobe --ip_vs_rr
+     modprobe --ip_vs_wrr
+     modprobe --ip_vs_sh
+     modprobe --nf_conntrack_ipv4
      EOF
 
-     yum -y install kubadmin-1.15.1 kubectl-1.15.1 kubelet-1.15.1
-     systemctl enable kubelet.service
+     chmod 755 ipvs.modules
+     lsmod|grep -e ip_vs -e nf_conntrack_ipv4
 
-     所有节点安装运行。。。
-
-**** 初始化主节点
-    kubadmin从google gce上拉取镜像，需要科学上网，速度慢
+**** 安装docker
     
-    或者 导入下载好的镜像
+***** 依赖
+      yum install -y yum-utils device-mapper-persistent-data lvm2
 
-    #！/bin/bash
+      yum-config-manager \
+       --add-repo \
+       http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+       yum update -y && yum install -y docker-ce
+
+      
+***** 创建docker目录
+       mkdir /etc/docker
+     
+     
+*****  配置daemon
+       cat > /etc/docker/daemon.json <<EOF
+       { 
+	"exec-opts":["native.cgroupdriver-systemd"],
+	"log-driver":"json-file",
+	"log-opts":{
+           "max-size":"100m"
+	 }
+
+       } # for elk 
+     
+       systemctl start docker
+       systemctl enable docker
+
+***** 安装kubeadmin（主从配置）
+      cat << EOF > /etc/yum.repos.d/kubernets.repo
+      [kubernetes]
+      name=kubernets
+      baseurl=http://mirrors.aliyun.com/kubernetes/yum/repo/kubernetes-el7-x86_64
+      enable=1
+      gpgcheck=0
+      repo_gpgcheck=0
+      gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
+      http://mirrors.aliyun.com/kubernets/yum/doc/rpm-package-key.gpg
+      EOF
+
+      yum -y install kubadmin-1.15.1 kubectl-1.15.1 kubelet-1.15.1
+      systemctl enable kubelet.service
+
+      所有节点安装运行。。。
+
+***** 初始化主节点
+     kubadmin从google gce上拉取镜像，需要科学上网，速度慢
     
-    for i in $(cat list.images)
-    do
-       dokcer load -i $i
-    done
+     或者 导入下载好的镜像
 
-    ---
-    kubadmin config print init-defaults > kubeadm-config.yaml
-    	localAPIEndpoint:
-		advertiseAddress: xxxx(master ip)
-	kubernetesVersion: v1.xxx(版本一致)
-	networking:
-		podSubnet:"10.244.0.0/16" ###必须此网段，for flannel network default
-		serviceSubnet:10.96.0.0/12
+     #！/bin/bash
+    
+     for i in $(cat list.images)
+     do
+	dokcer load -i $i
+     done
+
+     ---
+     kubadmin config print init-defaults > kubeadm-config.yaml
+    	 localAPIEndpoint:
+		 advertiseAddress: xxxx(master ip)
+	 kubernetesVersion: v1.xxx(版本一致)
+	 networking:
+		 podSubnet:"10.244.0.0/16" ###必须此网段，for flannel network default
+		 serviceSubnet:10.96.0.0/12
 		
-    ---
+     ---
 
-    apiVersion: kubeproxy.config.k8s.io/v1alpha1
-    kind:kubeproxyConfiguration
-    featureGate:
-    	SupportIPVSProxyMode:true
+     apiVersion: kubeproxy.config.k8s.io/v1alpha1
+     kind:kubeproxyConfiguration
+     featureGate:
+    	 SupportIPVSProxyMode:true
 
-    mode:ipvs
+     mode:ipvs
 
-    初始化，并自动办法证书#for ha cluster 
-    kubeadm init --config-kubeadm-config.yaml --experimental-upload-certs |tee kubadm-init.log
-
-
-    mkdir -p $HOME/.kube
-    sudo cp -i /etc/kubernets/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+     初始化，并自动办法证书#for ha cluster 
+     kubeadm init --config-kubeadm-config.yaml --experimental-upload-certs |tee kubadm-init.log
 
 
-    kubectl get node
+     mkdir -p $HOME/.kube
+     sudo cp -i /etc/kubernets/admin.conf $HOME/.kube/config
+     sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 
-    
-**** 部署网络，需要一个扁平化网络存在
-     kubectl apply -f http://raw.githubusercontent.com/coreos/flannel/master/Documention/kube-flannel.yaml
-
-     kubectl create -f kube-flannel.yaml 
-
-     kubectl get node -n kube-system  #系统组建所在的名称空间
-
-
-     ifconfig 查看flannel网卡是否出现
-
-     加入其它的node，tail kubadm-init.log中的加入节点的信息
-     其它node上执行
-     kubeadm join ... --token ... --discovery-token-ca-cert-hash ...
-
-     master上查看结果
      kubectl get node
 
-     kubectl get node -n kube-system -o wide # verbose info
-     kubectl get node -n kube-system -w #watch status
 
-     ...k8s cluster部署完毕
-
-     下面测试
-
-
-**** 从私有仓库中拉取镜像，并创建副本数目
-     kubectl run nginx-deployment --image=hub.xxx/library/myapp:v1 -port=80 --replicase=1
-
-     kubectl get deployment
-     
-     kubectl get rs #replicatset 受deployment管理
-     
-     kubectl get pod
-
-     kubectl get deployment
-
-     kubectl get pod -o wide  #查看详细，包括运行的node，pause信息
-
-
-     因为run指定了副本=1
-     所以，kubectl delete pod nginx-deployment-xxxhash之后，k8s会继续创建一个新pod
-
-     kubectl get pod 可以确认
-
-     也可以给deployment扩容
-
-     kubectl scale --replicas=3 deployment/nginx-deployment
-
-
-     扩容后的3个pod的负载均衡访问问题，即svc（服务发现）
-
- 
-     kubectl expose --help
-     kubectl expose deployment nginx --port=80 --target-port=8000
-
-
-     kubectl get svc 确认
-      
-     curl https://xxxxx/hostname.html
-
-
-     lvs确认
-     ipvsadmin -Ln ###在master节点上用 kubectl get pod -o wide 信息一致
-
-
-     但有一个问题，此情况下的ClusterIP并不能被k8s外部用户访问
-
-     需要将svc 的Type由ClusterIP修改成NodePort
-     kubectl edit svc nginx-deployment
-
-     ntstat -antp|grep Nodeport'port
-
-     并且此端口在所有节点上暴露：master，node
-
-** 集群资源分类
-
-*** 名称空间级别
     
-    举例：kubeadm get pod -n kube-system
+***** 部署网络，需要一个扁平化网络存在
+      kubectl apply -f http://raw.githubusercontent.com/coreos/flannel/master/Documention/kube-flannel.yaml
+
+      kubectl create -f kube-flannel.yaml 
+
+      kubectl get node -n kube-system  #系统组建所在的名称空间
+
+
+      ifconfig 查看flannel网卡是否出现
+
+      加入其它的node，tail kubadm-init.log中的加入节点的信息
+      其它node上执行
+      kubeadm join ... --token ... --discovery-token-ca-cert-hash ...
+
+      master上查看结果
+      kubectl get node
+
+      kubectl get node -n kube-system -o wide # verbose info
+      kubectl get node -n kube-system -w #watch status
+
+      ...k8s cluster部署完毕
+
+      下面测试
+
+
+
+*** 集群资源分类
+
+**** 名称空间级别
     
-    查看k8s系统组件，需要制定名称空间，否则默认空间是default,无法看到信息
+     举例：kubeadm get pod -n kube-system
+    
+     查看k8s系统组件，需要制定名称空间，否则默认空间是default,无法看到信息
 
-**** 工作负载型资源（workload）：
-     Pod，ReplicaSet，Deployment，
-     StatefulSet、DaemonSet、Job、CronJob（ReplicaionController在V.11版本被废弃）
+***** 工作负载型资源（workload）：
+      Pod，ReplicaSet，Deployment，
+      StatefulSet、DaemonSet、Job、CronJob（ReplicaionController在V.11版本被废弃）
 
-**** 服务发现即负载均衡型资源(ServiceDiscovery LoadBalance)：
-     Service、Ingress、。。。
+***** 服务发现即负载均衡型资源(ServiceDiscovery LoadBalance)：
+      Service、Ingress、。。。
 
-**** 配置与存储型资源：
-     Volume（存储卷）
-     CSI（容器存储借口，可以扩展各种各样的第三方存储卷）
+***** 配置与存储型资源：
+      Volume（存储卷）
+      CSI（容器存储借口，可以扩展各种各样的第三方存储卷）
 
-**** 特殊类型的存储卷：
-     ConfigMap（配置中心使用，配置文件热更新）、Secret（保持敏感数据）
-     DownwarAPI（把外部环境中的信息输出给容器）
+***** 特殊类型的存储卷：
+      ConfigMap（配置中心使用，配置文件热更新）、Secret（保持敏感数据）
+      DownwarAPI（把外部环境中的信息输出给容器）
 
-*** 集群级别
+**** 集群级别
 
-    举例：role，整个cluster可见
+     举例：role，整个cluster可见
 
-**** NameSpace
+***** NameSpace
 
-**** Node
+***** Node
 
-**** Role
+***** Role
 
-**** ClusterRole
+***** ClusterRole
 
-**** RoleBinding
+***** RoleBinding
 
-**** ClusterRoleBinding
-
-
-
-*** 元数据级别
-    举例：HPA，用于CPU利用率来进行集群扩展的指标
-
-**** HAP
-
-**** PodTemplate
-
-**** LmitRange
-** <2021-08-22 日 21:54> - 资源清单
-     :LOGBOOK:
-     CLOCK: [2021-08-22 日 21:55]--[2021-08-22 日 22:06] =>  0:11
-     :END:
-     查看帮助文档字段说明
-     kubectl explain pod.spec
+***** ClusterRoleBinding
 
 
-     清单举例
 
-     ---pod.yaml---
+**** 元数据级别
+     举例：HPA，用于CPU利用率来进行集群扩展的指标
 
-     apiVersion:v1
-     kind:Pod
-     metedata:
-      name:myappp-pod
-      labels:
-       app:myapp
-       version:v1
-     spec:
-      container:
-      - name :app1
-	image:hub.xxx/library/myapp1:v1
-      - name :app2
-	image:hub.xxx/library/myapp2.v1
+***** HAP
+
+***** PodTemplate
+
+***** LmitRange
+*** <2021-08-22 日 21:54> - 资源清单
+      :LOGBOOK:
+      CLOCK: [2021-08-22 日 21:55]--[2021-08-22 日 22:06] =>  0:11
+      :END:
+      查看帮助文档字段说明
+      kubectl explain pod.spec
 
 
--------运行---
+      清单举例
 
-kubectl apply -f pod.yaml
+      ---pod.yaml---
+
+      apiVersion:v1
+      kind:Pod
+      metedata:
+       name:myappp-pod
+       labels:
+	app:myapp
+	version:v1
+      spec:
+       container:
+       - name :app1
+	 image:hub.xxx/library/myapp1:v1
+       - name :app2
+	 image:hub.xxx/library/myapp2.v1
 
 
-状态检查
+ -------运行---
 
-kubectl get pod
-kubectl describe pod myapp-pod
-kubectl log myapp-pod -c app2 # 制定容器查看
+ kubectl apply -f pod.yaml
 
-删除问题pod
-kubectl delete pod myapp-pods
-** <2021-08-25 Wed 16:48> - k8s 探针
-   :LOGBOOK:
-   CLOCK: [2021-08-25 Wed 16:49]--[2021-08-25 Wed 16:51] =>  0:02
-   :END:
-   查看k8s pod
-   kubctl get pod
 
-   进pod中查看容器
-   kubectl exec xxxx-pod -c xxx container -it -- /bin/sh
+ 状态检查
 
-   删除所有pod
+ kubectl get pod
+ kubectl describe pod myapp-pod
+ kubectl log myapp-pod -c app2 # 制定容器查看
 
-   kubectl delete pod --all
+ 删除问题pod
+ kubectl delete pod myapp-pods
+*** <2021-08-25 Wed 16:48> - k8s 探针
+    :LOGBOOK:
+    CLOCK: [2021-08-25 Wed 16:49]--[2021-08-25 Wed 16:51] =>  0:02
+    :END:
+    查看k8s pod
+    kubctl get pod
+
+    进pod中查看容器
+    kubectl exec xxxx-pod -c xxx container -it -- /bin/sh
+
+    删除所有pod
+
+    kubectl delete pod --all
    
-   删除svc
-   kubectl delete svc mydb mynginx ...
-* 2021
-** 2021-08 August
-*** 2021-08-25 Wednesday
-**** <2021-08-25 Wed 22:17> - dddddddddddddddd
-     :LOGBOOK:
-     CLOCK: [2021-08-25 Wed 22:17]--[2021-08-25 Wed 22:17] =>  0:00
-     :END:
-     d
-**** <2021-08-25 Wed 22:18> - cccc
-     :LOGBOOK:
-     CLOCK: [2021-08-25 Wed 22:18]--[2021-08-25 Wed 22:18] =>  0:00
-     :END:
-     ddd
-**** <2021-08-25 Wed 22:19> - dddddddd
-     :LOGBOOK:
-     CLOCK: [2021-08-25 Wed 22:19]--[2021-08-25 Wed 22:19] =>  0:00
-     :END:
+    删除svc
+    kubectl delete svc mydb mynginx ...
+
+*** <2021-08-26 Thu 10:58> - 资源管理器
+    :LOGBOOK:
+    CLOCK: [2021-08-26 Thu 14:26]
+    CLOCK: [2021-08-26 Thu 10:59]--[2021-08-26 Thu 11:00] =>  0:01
+    :END:
+    RS 查看更改😊label
+
+    kubectl get pod 
+    kubectl get pod --show-labels
+    kubectl label pod xxx-pod tier=xxx --overwrite=True
+
+
+    Deployment yaml文件举例
+   
+    apiVersion: extensin/v1beta1
+    kind:Deplyment
+    metedata:
+    name:nginx-deployment
+    spec:
+    replicas:3
+    template:
+    labels:
+    app:nginx
+
+    spec:
+    container:
+	    - name:nginx
+	      image:nginx:1.7.9
+	      ports:
+	      - containerport:80
+
+		创建：
+
+		kubectl create -f nginx.yaml --record ###record 记录操作
+
+		查看
+		kubectl get deployment
+		kubectl get rs
+		kubectl log ...
+
+		扩容
+
+		kubectl scale deployment nginx-deployment --replicas 10
+
+
+	    更新
+	    kubectl set image deployment/nginx-deployment nginx=imagenew:v2
+
+	    回滚
+	    kubectl rollout undo deployment/nginx-deployment 
+	    kubectl rollout undo deployment/nginx-deployment --to-revision=2
+
+	
+	    更新状态
+	    kubectl rollout status deployment/nginx-deployment
+
+	    kubectl rollout history ...
+
+
+	    删除
+	    kubectl delete daemonset --all
+*** <2021-08-27 五 10:08> - k8s ingress
+    :LOGBOOK:
+    CLOCK: [2021-08-27 五 10:08]--[2021-08-27 五 10:09] =>  0:01
+    :END:
+    
+    nginx-ingress
      
+    下载镜像 docker pull xxx/kubernets-ingress-controll
+    保存镜像 docker save -o xxx.tar  xxx-images:v1

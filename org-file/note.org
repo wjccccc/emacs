@@ -3,114 +3,350 @@
 #+TAGS: [coding: shell python]
 #+TAGS: [shell: grep tail sed ssh]
 #+TAGS: [python: ipython pandas numpy]
-* 2021-08 August
-** 2021-08-13 Friday
-*** <2021-08-13 Fri 17:30> - harbor service
+* 2021
+** 2021-08 八月
+*** 2021-08-13 Friday
+**** <2021-08-13 Fri 17:30> - harbor service
+     :LOGBOOK:
+     CLOCK: [2021-08-13 Fri 17:30]--[2021-08-13 Fri 17:30] =>  0:00
+     :END:
+     阿里云测试机
+     121.199.25.209
+*** <2021-08-25 Wed 21:38> - dragonflay2.0
     :LOGBOOK:
-    CLOCK: [2021-08-13 Fri 17:30]--[2021-08-13 Fri 17:30] =>  0:00
+    CLOCK: [2021-08-25 Wed 21:39]--[2021-08-25 Wed 21:40] =>  0:01
     :END:
-    阿里云测试机
-   121.199.25.209
-** TODO <2021-08-25 Wed 21:38> - dragonflay2.0
-   :LOGBOOK:
-   CLOCK: [2021-08-25 Wed 21:39]--[2021-08-25 Wed 21:40] =>  0:01
-   :END:
    
-   docker pull dragonflyoss/manager:v0.3.0
+    docker pull dragonflyoss/manager:v0.3.0
 
-   Start manager
+    Start manager
 
-   NOTE: Replace ${managerDockerImageId} with the ID obtained at the previous step.
+    NOTE: Replace ${managerDockerImageId} with the ID obtained at the previous step.
      
-   docker run -d --name manager --restart=always -p 8004:8004 ${managerDockerImageId}
+    docker run -d --name manager --restart=always -p 8004:8004 ${managerDockerImageId}
 
 
 
-   After this Task
+    After this Task
    
-   After manager is installed, run the following commands to verify if manager is started, and if Port 8004 and 8003 is available.
+    After manager is installed, run the following commands to verify if manager is started, and if Port 8004 and 8003 is available.
 
-   telnet 127.0.0.1 8004
+    telnet 127.0.0.1 8004
 
 
-   docker pull dragonflyoss/cdn:v0.3.0
-   Start cdn
+    docker pull dragonflyoss/cdn:v0.3.0
+    Start cdn
 
-   NOTE: Replace ${cdnDockerImageId} with the ID obtained at the previous step.
+    NOTE: Replace ${cdnDockerImageId} with the ID obtained at the previous step.
    
-   docker run -d --name cdn --restart=always -p 8001:8001 -p 8003:8003 -v /home/admin/ftp:/home/admin/ftp ${cdnDockerImageId} 
-   --download-port=8001
+    docker run -d --name cdn --restart=always -p 8001:8001 -p 8003:8003 -v /home/admin/ftp:/home/admin/ftp ${cdnDockerImageId} 
+    --download-port=8001
 
 
-   After this Task
+    After this Task
 
-   After cdn is installed, run the following commands to verify if Nginx and cdn are started, and if Port 8001 and 8003 are available.
+    After cdn is installed, run the following commands to verify if Nginx and cdn are started, and if Port 8001 and 8003 are available.
 
-   telnet 127.0.0.1 8001
-   telnet 127.0.0.1 8003
-** <2021-08-25 Wed 22:12> - dragonfly2 manager
+    telnet 127.0.0.1 8001
+    telnet 127.0.0.1 8003
+*** <2021-08-25 Wed 22:12> - dragonfly2 manager
+    :LOGBOOK:
+    CLOCK: [2021-08-25 Wed 22:12]--[2021-08-25 Wed 22:13] =>  0:01
+    :END:
+   启动报错 寻找redis
+*** 2021-08-30 Monday
+*** <2021-08-30 Mon 19:42> - drangonfly source file
+    :LOGBOOK:
+    CLOCK: [2021-08-30 Mon 19:43]--[2021-08-30 Mon 20:03] =>  0:20
+    :END:
+    
+    daemon/mgr/cdn/manager.go 
+
+    // start to download the source file
+    resp, err := cm.download(ctx, task.ID, task.RawURL, task.Headers, startPieceNum, httpFileLength, pieceContSize)
+    cm.metrics.cdnDownloadCount.WithLabelValues().Inc()
+    if err != nil {
+    cm.metrics.cdnDownloadFailCount.WithLabelValues().Inc()
+    return getUpdateTaskInfoWithStatusOnly(types.TaskInfoCdnStatusFAILED), err
+    }
+
+    daemon/mgr/sourcecdn/manager.go
+
+    // TriggerCDN will trigger CDN to download the file from sourceUrl.
+    func (cm *Manager) TriggerCDN(ctx context.Context, task *types.TaskInfo) (*types.TaskInfo, error) {
+    httpFileLength := task.HTTPFileLength
+    if httpFileLength == 0 {
+    httpFileLength = -1
+    }
+
+    if httpFileLength > 0 {
+    pieceTotal := int((httpFileLength + int64(task.PieceSize-1)) / int64(task.PieceSize))
+    supernodeCID := cm.cfg.GetSuperCID(task.ID)
+    supernodePID := cm.cfg.GetSuperPID()
+
+    var pieceNum int
+    for pieceNum = 0; pieceNum < pieceTotal; pieceNum++ {
+    cm.progressManager.UpdateProgress(ctx, task.ID, supernodeCID, supernodePID, "", pieceNum, config.PieceSUCCESS)
+    }
+    }
+
+    return &types.TaskInfo{
+    CdnStatus: types.TaskInfoCdnStatusSUCCESS,
+    }, nil
+    }
+** 2021-09 September
+*** 2021-09-02 Thursday
+**** <2021-09-02 Thu 15:52> - docker netwok
+     :LOGBOOK:
+     CLOCK: [2021-09-02 Thu 15:52]--[2021-09-02 Thu 16:30] =>  0:38
+     :END:
+    
+
+Docker安装后，默认会创建下面三种网络类型
+	
+$ docker network ls
+NETWORK ID     NAME        DRIVER       SCOPE
+9781b1f585ae    bridge       bridge       local
+1252da701e55    host        host        local
+237ea3d5cfbf    none        null        local
+
+
+bridge：桥接网络
+
+默认情况下启动的Docker容器，都是使用 bridge，Docker安装时创建的桥接网络，每次Docker容器重启时，会按照顺序获取对应的IP地址，这个就导致重启下，Docker的IP地址就变了
+none：无指定网络
+
+使用 --network=none ，docker 容器就不会分配局域网的IP
+host： 主机网络
+
+使用 --network=host，此时，Docker 容器的网络会附属在主机上，两者是互通的。
+例如，在容器中运行一个Web服务，监听8080端口，则主机的8080端口就会自动映射到容器中
+
+$ docker network ls
+NETWORK ID     NAME        DRIVER       SCOPE
+9781b1f585ae    bridge       bridge       local
+1252da701e55    host        host        local
+237ea3d5cfbf    none        null        local
+
+
+bridge：桥接网络
+
+默认情况下启动的Docker容器，都是使用 bridge，Docker安装时创建的桥接网络，每次Docker容器重启时，会按照顺序获取对应的IP地址，这个就导致重启下，Docker的IP地址就变了
+none：无指定网络
+
+使用 --network=none ，docker 容器就不会分配局域网的IP
+host： 主机网络
+
+使用 --network=host，此时，Docker 容器的网络会附属在主机上，两者是互通的。
+例如，在容器中运行一个Web服务，监听8080端口，则主机的8080端口就会自动映射到容器中
+
+
+
+
+Docker 配置容器固定IP
+
+第一步：创建自定义网络
+
+docker network create --subnet=172.172.0.0/24 docker-br0
+
+
+创建Docker容器
+docker run -itd --name networkTest1 --net mynetwork --ip 172.18.0.2 centos:latest /bin/bash
+
+
+备注：这里选取了172.172.0.0网段，也可以指定其他任意空闲的网段，docker-br0为自定义网桥的名字，可自己任意取名。
+
+永久的,可以使用docker network rm docker-br0 移除网桥
+
+在两个容器中互相访问,发现跨主机容器互访,并不能ping通。
+
+
+
+ip route add 172.172.1.0/24 via 192.168.1.106 dev eno16777736    
+添加完成之后,可以使用 route命令 查看添加之后的规则,也可以使用 ip route del 172.172.1.0/24  移除路由规则
+
+
+
+
+查看容器ip
+
+docker inspect container-id |grep IPAdress
+**** <2021-09-02 Thu 16:36> - linux split 
+     :LOGBOOK:
+     CLOCK: [2021-09-02 Thu 16:37]--[2021-09-02 Thu 17:01] =>  0:24
+     :END:
+     split命令：切割（拆分）文件
+
+     split 的命令格式：
+     split [-b ][-C ][-][-l ][要切割的文件][输出文件名前缀][-a ]
+
+
+     通过-d选项来指定数字形式的文件后缀：
+     #使用了-d选项
+     [root@roclinux ~]$ split -b 400m -d king_of_ring.avi king_of_ring_part_
+ 
+     #后缀从原来的aa、ab变成了00、01
+     [root@roclinux ~]$ ls -l king*
+     -rw-r--r-- 1 root root 716800000 Feb 25 18:29 king_of_ring.avi
+     -rw-r--r-- 1 root root 419430400 Feb 25 19:24 king_of_ring_part_00
+     -rw-r--r-- 1 root root 297369600 Feb 25 19:24 king_of_ring_part_01
+**** <2021-09-02 Thu 19:22> - ip 列表创建
+:LOGBOOK:
+CLOCK: [2021-09-02 Thu 19:22]--[2021-09-02 Thu 20:11] =>  0:49
+:END:
+
+---可以用--
+#!/bin/bash 
+ip=192.168.0.1/23
+address=${ip%/*}
+mlen=${ip#*/}
+declare -i FULL_MASK_INT=4294967295 
+declare -i MASK_LEN=$mlen
+declare -i LEFT_MOVE="32 - ${MASK_LEN}" 
+declare -i N="${FULL_MASK_INT} << ${LEFT_MOVE}" 
+declare -i H1="$N & 0x000000ff" 
+declare -i H2="($N & 0x0000ff00) >> 8" 
+declare -i L1="($N & 0x00ff0000) >> 16" 
+declare -i L2="($N & 0xff000000) >> 24" 
+mask="$L2.$L1.$H2.$H1"
+ip="$address $mask"
+all=(${ip//[!0-9]/ })  
+get_addr () {         
+    op='&'         
+    unset net          
+    while [ "$5" ]; do                
+    num=$(( $1 $op ($5 $op1 $arg) ))               
+    shift               
+    net="$net.$num"                             
+    done
+}
+get_addr ${all[@]}                  
+all=(${net//./ })
+n=$((2**(32-$mlen)))
+n1=${all[0]}
+n2=${all[1]}
+n3=${all[2]}
+n4=${all[3]}
+for((i=0;i<n;i++))
+do
+    if [ $n4 -eq 256 ];then
+        n4=0
+        ((n3++))
+        if [ $n3 -eq 256 ];then
+            n3=0
+            ((n2++))
+                if [ $n2 -eq 256 ];then
+                        n2=0
+                        ((n1++))
+            fi
+        fi    
+    fi
+    echo "$n1.$n2.$n3.$n4"
+        ((n4++))
+done
+
+
+
+---2.可用----                  
+#!/bin/bash                    
+                               
+a=$1                           
+b=$2                           
+for ((c=$3;c<255;c++))         
+do                             
+for ((d=$4;d<255;d++))         
+do                             
+echo $a.$b.$c.$d               
+done                           
+done                           
+                               
+$./ip.sh 192 168 0 1           
+                               
+
+
+----
+3 此功能只是打印下一个IP：
+--------
+nextip(){ 
+IP=$1 
+IP_HEX=$(printf '%.2X%.2X%.2X%.2X\n' `echo $IP | sed -e 's/\./ /g'`) 
+NEXT_IP_HEX=$(printf %.8X `echo $((0x$IP_HEX + 1))`) 
+NEXT_IP=$(printf '%d.%d.%d.%d\n' `echo $NEXT_IP_HEX | sed -r 's/(..)/0x\1 /g'`) 
+echo "$NEXT_IP" 
+} 
+所以，你可以增加它想：
+
+FIRST_IP=192.168.1.250 
+NUM=10 
+
+IP=$FIRST_IP 
+for i in $(seq 1 $NUM); do 
+	echo $IP 
+	IP=$(nextip $IP) 
+done 
+输出示例：
+
+192.168.1.250 
+192.168.1.251 
+192.168.1.252 
+192.168.1.253 
+192.168.1.254 
+192.168.1.255 
+192.168.2.0 
+192.168.2.1 
+192.168.2.2 
+192.168.2.3 
+
+----------------
+#!/bin/bash 
+ip=$1 
+IFS=. read i1 i2 i3 i4 <<< "$ip" 
+port=$2 
+max=255 
+
+    while [ $i1 -le $max ];do 
+     while [ $i2 -le $max ]; do 
+      while [ $i3 -le $max ]; do 
+        while [ $i4 -le $max ]; do 
+        timeout 0.4 bash -c "echo >/dev/tcp/$i1.$i2.$i3.$i4/$port" && echo "on $i1.$i2.$i3.$i4 port $port is open" 
+         i4=$(($i4+1)) 
+        done 
+      i4=0 
+      i3=$(($i3+1)) 
+      done 
+     i3=0 
+     i2=$(($i2+1)) 
+     done 
+    i2=0 
+    i1=$(($i1+1)) 
+    done
+*** 2021-09-03 Friday
+** <2021-09-03 Fri 06:57> - golang
    :LOGBOOK:
-   CLOCK: [2021-08-25 Wed 22:12]--[2021-08-25 Wed 22:13] =>  0:01
+   CLOCK: [2021-09-03 Fri 06:57]--[2021-09-03 Fri 07:04] =>  0:07
    :END:
-  启动报错 寻找redis 
-** <2021-08-26 Thu 10:58> - 资源管理器
-   :LOGBOOK:
-   CLOCK: [2021-08-26 Thu 14:26]
-   CLOCK: [2021-08-26 Thu 10:59]--[2021-08-26 Thu 11:00] =>  0:01
-   :END:
-   RS 查看更改😊label
-
-   kubectl get pod 
-   kubectl get pod --show-labels
-   kubectl label pod xxx-pod tier=xxx --overwrite=True
+  数组定义  ,长度，容量是数组类型的一部分
+  var a1 [3]bool
+  var a2 [4]string
+  var a3 = [...]int{1,3,5,7,9}
 
 
-   Deployment yaml文件举例
-   
-   apiVersion: extensin/v1beta1
-   kind:Deplyment
-   metedata:
-   	name:nginx-deployment
-   spec:
-   	replicas:3
-	template:
-		labels:
-			app:nginx
-
-		spec:
-			container:
-			- name:nginx
-			  image:nginx:1.7.9
-			  ports:
-			  - containerport:80
-
-	创建：
-	
-	kubectl create -f nginx.yaml --record ###record 记录操作
-	
-	查看
-	kubectl get deployment
-	kubectl get rs
-	kubectl log ...
-
-	扩容
-	
-	kubectl scale deployment nginx-deployment --replicas 10
+  切片定义, 是个引用类型
+  var name []bool
 
 
-	更新
-	kubectl set image deployment/nginx-deployment nginx=imagenew:v2
 
-	回滚
-	kubectl rollout undo deployment/nginx-deployment 
-	kubectl rollout undo deployment/nginx-deployment --to-revision=2
+  s1 := []string{"x1","x2"}
+ 
+  扩容s1，用s1[3]="x3" 会报错，应该用append方法
 
-	
-	更新状态
-	kubectl rollout status deployment/nginx-deployment
+  s1 = append (s1,"string1","string2")
+  ss := []string{"guangzhou","beijing"}
+  s1 = append(s1,ss...)  ///...表示散开切片，取出字符串
 
-	kubectl rollout history ...
+  切片应用append方法一定修改了底层数组
 
-
-	删除
-	kubectl delete daemonset --all
+  
+  s1=append(a1[:1],a1[2:]...)
+  fmt.Println(s1,len(s1),cap(s1))
+  底层替换了第二个元素

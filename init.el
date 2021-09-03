@@ -25,3 +25,4 @@
 (require 'ob-tangle)
 (org-babel-load-file (expand-file-name "jincai-emacs.org" user-emacs-directory))
 
+(put 'upcase-region 'disabled nil)
