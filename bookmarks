@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/.emacs.d/org-file/note.org")
- (front-context-string . "** <2021-09-03 F")
- (rear-context-string . "var name []bool\n")
- (position . 8381))
+ (front-context-string . "** <2021-09-04 S")
+ (rear-context-string . "，返回对应类型本身\n    \n\n")
+ (position . 9220))
 ("org-refile-last-stored"
  (filename . "~/.emacs.d/org-file/note.org")
- (front-context-string . "** <2021-09-03 F")
- (rear-context-string . "var name []bool\n")
- (position . 8381))
+ (front-context-string . "** <2021-09-04 S")
+ (rear-context-string . "，返回对应类型本身\n    \n\n")
+ (position . 9220))
 ("org-capture-last-stored"
  (filename . "~/.emacs.d/org-file/note.org")
- (front-context-string . "**** <2021-09-03")
- (rear-context-string . "21-09-03 Friday\n")
- (position . 8146))
+ (front-context-string . "**** <2021-09-04")
+ (rear-context-string . "-09-04 Saturday\n")
+ (position . 9080))
 )
